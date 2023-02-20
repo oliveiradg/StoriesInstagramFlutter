@@ -28,13 +28,31 @@ class _StoryScreenState extends State<StoryScreen> {
     super.initState();
   }
 
-  void _onVerticalDragUpdate(DragUpdateDetails dragUpdateDetails) {}
+  void _onVerticalDragUpdate(DragUpdateDetails dragUpdateDetails) {
+    if (dragUpdateDetails.delta.dy < 0.7) {
+      setState(() {
+        isShowStory = false;
+      });
+    } else {
+      setState(() {
+        isShowStory = true;
+      });
+    } 
+  }
+
+  double _getStoryActivityDetails(double deviceHeight){
+    if (isShowStory) {
+      return 0;
+    } else {
+      return deviceHeight * 0.8;
+    }
+  }
 
   double _getStoryVideoHeight(double deviceHeight) {
     if (isShowStory) {
       return deviceHeight - 140;
     } else {
-      return deviceHeight - 70;
+      return deviceHeight * 0.2 - 70;
     }
   }
 
@@ -60,6 +78,7 @@ class _StoryScreenState extends State<StoryScreen> {
                       child: VideoPlayer(_videoPlayerController))
                   : const SizedBox.shrink(),
             ),
+            if(isShowStory)
             Positioned(
               top: paddingTop + 28,
               left: 16,
@@ -122,6 +141,7 @@ class _StoryScreenState extends State<StoryScreen> {
                 ],
               ),
             ),
+            //close icon
             Positioned(
               top: paddingTop + 28,
               right: 16,
@@ -134,6 +154,7 @@ class _StoryScreenState extends State<StoryScreen> {
                 ],
               ),
             ),
+            if(isShowStory)
             Positioned(
               
               bottom: 0,
@@ -191,6 +212,13 @@ class _StoryScreenState extends State<StoryScreen> {
                   ),
                 ],
               ),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: _getStoryActivityDetails(deviceHeight),
+              child: Text('teste atividade'),
             ),
           ],
         ),
