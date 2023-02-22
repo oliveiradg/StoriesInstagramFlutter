@@ -70,7 +70,7 @@ class _StoryScreenState extends State<StoryScreen> {
     final paddingTop = MediaQuery.of(context).padding.top;
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
-    const animatedDuration =  Duration(milliseconds: 300);
+    const animatedDuration = Duration(milliseconds: 300);
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
@@ -79,8 +79,8 @@ class _StoryScreenState extends State<StoryScreen> {
           alignment: Alignment.center,
           children: [
             AnimatedPositioned(
-                            curve: Curves.easeIn,
-              duration: animatedDuration, 
+              curve: Curves.easeIn,
+              duration: animatedDuration,
               top: paddingTop + 12,
               width: _getStoryVideoWidth(deviceWidth),
               height: _getStoryVideoHeight(deviceHeight),
@@ -90,72 +90,75 @@ class _StoryScreenState extends State<StoryScreen> {
                       child: VideoPlayer(_videoPlayerController))
                   : const SizedBox.shrink(),
             ),
+             if (isShowStory)
+              Positioned(
+                top: paddingTop + 28,
+                left: 16,
+                child: const Icon(Icons.settings,
+                    color: Colors.white, size: 24),),
             if (isShowStory)
-         
-        Positioned(
-
-                
-              top: paddingTop + 28,
-              left: 16,
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 20,
-                    backgroundImage: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4Y4WTZoSQ4K92ab8op04Isc18lGUT4zScFECkauw0uABHCHk3RbbPfRssHpf_trEfsrw&usqp=CAU'),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text.rich(
-                        TextSpan(children: [
-                          TextSpan(
-                            text: 'Homem Aranha',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
+              Positioned(
+                top: paddingTop + 28,
+                left: 16,
+                child: Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 20,
+                      backgroundImage: NetworkImage(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4Y4WTZoSQ4K92ab8op04Isc18lGUT4zScFECkauw0uABHCHk3RbbPfRssHpf_trEfsrw&usqp=CAU'),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text.rich(
+                          TextSpan(children: [
+                            TextSpan(
+                              text: 'Homem Aranha',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                          TextSpan(
-                            text: '  3h',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                            TextSpan(
+                              text: '  3h',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                        ]),
-                      ),
-                      //
-                      Text.rich(
-                        TextSpan(children: [
-                          TextSpan(
-                            text: 'Boomerang',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                          ]),
+                        ),
+                        //
+                        Text.rich(
+                          TextSpan(children: [
+                            TextSpan(
+                              text: 'Boomerang',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                          TextSpan(
-                            text: ' by Instagram >',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                            TextSpan(
+                              text: ' by Instagram >',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                        ]),
-                      ),
-                    ],
-                  )
-                ],
+                          ]),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
             //close icon
             Positioned(
               top: paddingTop + 28,
@@ -190,7 +193,7 @@ class _StoryScreenState extends State<StoryScreen> {
                           ),
                           CircleAvatar(
                             backgroundImage: NetworkImage(
-                                'https://portalpopline.com.br/wp-content/uploads/2021/12/refilmagens-doutor-estranho-no-multiverso-da-loucura-marvel.jpg?w=640'),
+                                'https://epipoca.com.br/wp-content/uploads/2022/04/doutor-estranho-19042022.jpg'),
                           ),
                         ]),
                         const Text(
@@ -221,25 +224,120 @@ class _StoryScreenState extends State<StoryScreen> {
                   ],
                 ),
               ),
+
             AnimatedPositioned(
-              curve: Curves.easeIn,
               duration: animatedDuration,
+              curve: Curves.easeIn,
               left: 0,
               right: 0,
-              bottom: 0,
+              bottom: -26,
               height: _getStoryActivityDetails(deviceHeight),
               child: Stack(
                 clipBehavior: Clip.none,
-             alignment: Alignment.topCenter,
-             children: const [
-                 Positioned(
-                  top: -26,
-                  child:  TriangleWidget(),
-                ),
-                ColoredBox(color: Color.fromRGBO(33, 33, 33, 1),),
-                  
-                  
-             ],
+                alignment: Alignment.topCenter,
+                children: [
+                  const Positioned(
+                    top: -12,
+                    height: 20,
+                    child: TriangleWidget(),
+                  ),
+                  Container(
+                    color: Color.fromRGBO(33, 33, 33, 1),
+                    padding: const EdgeInsets.all(8),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: const [
+                              Icon(
+                                Icons.remove_red_eye,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Text('25',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ))
+                            ],
+                          ),
+                          const Divider(),
+                          const Text(
+                            'Visualizações',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          ...List.generate(
+                            25,
+                            (_) => Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Row(
+                                              children: const [
+                                                CircleAvatar(
+                                                  backgroundImage: NetworkImage(
+                                                      'https://uploads.jovemnerd.com.br/wp-content/uploads/2023/01/marvels_avengers_encerra_atualizacoes_suporte__m2s8t2a30-1210x544.jpg'),
+                                                ),
+                                                SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Text(
+                                                  'Avengers',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+
+                                ),
+                               Row(children: const[
+                                Icon(Icons.more_horiz,
+                                color: Colors.white,
+                                size: 24,
+                                ),
+                                   SizedBox(
+                                              width: 8,
+                                            ),
+                                Icon(Icons.messenger,
+                                color: Colors.white,
+                                size: 24,
+                                ),
+
+                               ],) ,
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
