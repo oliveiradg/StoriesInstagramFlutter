@@ -90,7 +90,7 @@ class _StoryScreenState extends State<StoryScreen> {
                       child: VideoPlayer(_videoPlayerController))
                   : const SizedBox.shrink(),
             ),
-             if (isShowStory)
+             if (!isShowStory)
               Positioned(
                 top: paddingTop + 28,
                 left: 16,
