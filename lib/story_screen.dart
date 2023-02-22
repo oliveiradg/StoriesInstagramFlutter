@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_stories/widgets/icon_with_text_widget.dart';
+import 'package:instagram_stories/widgets/triangle_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class StoryScreen extends StatefulWidget {
@@ -37,10 +38,10 @@ class _StoryScreenState extends State<StoryScreen> {
       setState(() {
         isShowStory = true;
       });
-    } 
+    }
   }
 
-  double _getStoryActivityDetails(double deviceHeight){
+  double _getStoryActivityDetails(double deviceHeight) {
     if (isShowStory) {
       return 0;
     } else {
@@ -56,10 +57,20 @@ class _StoryScreenState extends State<StoryScreen> {
     }
   }
 
+  double _getStoryVideoWidth(double deviceWidth) {
+    if (isShowStory) {
+      return deviceWidth - 16;
+    } else {
+      return deviceWidth * 0.2 - 16;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final paddingTop = MediaQuery.of(context).padding.top;
     final deviceHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+    const animatedDuration =  Duration(milliseconds: 300);
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
@@ -67,19 +78,23 @@ class _StoryScreenState extends State<StoryScreen> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Positioned(
+            AnimatedPositioned(
+                            curve: Curves.easeIn,
+              duration: animatedDuration, 
               top: paddingTop + 12,
-              left: 8,
+              width: _getStoryVideoWidth(deviceWidth),
               height: _getStoryVideoHeight(deviceHeight),
-              right: 8,
               child: isVideoInitialized
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: VideoPlayer(_videoPlayerController))
                   : const SizedBox.shrink(),
             ),
-            if(isShowStory)
-            Positioned(
+            if (isShowStory)
+         
+        Positioned(
+
+                
               top: paddingTop + 28,
               left: 16,
               child: Row(
@@ -154,71 +169,78 @@ class _StoryScreenState extends State<StoryScreen> {
                 ],
               ),
             ),
-            if(isShowStory)
-            Positioned(
-              
-              bottom: 0,
-              left: 16,
-              right: 16,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children:  [
-                      Row(
-                       
-                        
-                        children: const [
-                          
-                      CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/images/ironman.png'),
-                      ),
-                      CircleAvatar(
-                        backgroundImage:
-                            NetworkImage('https://fumettologica.it/wp-content/uploads/2019/05/hulk-film.jpg'),
-                      ),
-                      CircleAvatar(
-                        backgroundImage:
-                           NetworkImage('https://portalpopline.com.br/wp-content/uploads/2021/12/refilmagens-doutor-estranho-no-multiverso-da-loucura-marvel.jpg?w=640'),
-                      ),
-                        ]
-                      ),
-
-                    const  Text(
-                        'Atividade',
-                        style: TextStyle(
-                          color: Colors.white,
+            if (isShowStory)
+              Positioned(
+                bottom: 0,
+                left: 16,
+                right: 16,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Row(children: const [
+                          CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/images/ironman.png'),
+                          ),
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                'https://fumettologica.it/wp-content/uploads/2019/05/hulk-film.jpg'),
+                          ),
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                'https://portalpopline.com.br/wp-content/uploads/2021/12/refilmagens-doutor-estranho-no-multiverso-da-loucura-marvel.jpg?w=640'),
+                          ),
+                        ]),
+                        const Text(
+                          'Atividade',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: const [
-                      IconWithTextWidget(
-                          icon: Icons.facebook, text: 'facebook'),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      IconWithTextWidget(
-                          icon: Icons.favorite_outline_outlined,
-                          text: 'Destacar'),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      IconWithTextWidget(icon: Icons.more_horiz, text: 'Mais'),
-                 
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    Row(
+                      children: const [
+                        IconWithTextWidget(
+                            icon: Icons.facebook, text: 'facebook'),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        IconWithTextWidget(
+                            icon: Icons.favorite_outline_outlined,
+                            text: 'Destacar'),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        IconWithTextWidget(
+                            icon: Icons.more_horiz, text: 'Mais'),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Positioned(
+            AnimatedPositioned(
+              curve: Curves.easeIn,
+              duration: animatedDuration,
               left: 0,
               right: 0,
               bottom: 0,
               height: _getStoryActivityDetails(deviceHeight),
-              child: Text('teste atividade'),
+              child: Stack(
+                clipBehavior: Clip.none,
+             alignment: Alignment.topCenter,
+             children: const [
+                 Positioned(
+                  top: -26,
+                  child:  TriangleWidget(),
+                ),
+                ColoredBox(color: Color.fromRGBO(33, 33, 33, 1),),
+                  
+                  
+             ],
+              ),
             ),
           ],
         ),
